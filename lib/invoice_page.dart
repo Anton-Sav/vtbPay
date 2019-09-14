@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vtb_pay_app/make_invoice_page.dart';
+import 'package:vtb_pay_app/utils.dart';
 
 class InvoicePage extends StatefulWidget {
   @override
@@ -9,7 +11,7 @@ class InvoicePage extends StatefulWidget {
 class _InvoicePageState extends State<InvoicePage> {
   final _formKey = GlobalKey<FormState>();
 
-  String aaa, bbb;
+  String aaa;
 
   @override
   Widget build(BuildContext context) {
@@ -25,25 +27,29 @@ class _InvoicePageState extends State<InvoicePage> {
               decoration: InputDecoration(
                 labelText: 'Введите общую сумму счёта',
               ),
+              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
               keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Введите сумму';
+                }
+                return null;
+              },
               onSaved: (value) {
                 aaa = value;
               },
             ),
-            TextFormField(
-              decoration: InputDecoration(labelText: "Введите количество людей"),
-              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-              keyboardType: TextInputType.number,
-              onSaved: (value) {
-                bbb = value;
-              },
-            ),
             RaisedButton(
-              child: Text('ccc'),
+              child: Text('Собрать деньги'),
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
-                  Scaffold.of(context).showSnackBar(SnackBar(content: Text(aaa + '@' + bbb)));
+                  int paymentSum = int.parse(aaa);
+                  Nav(context).push(
+                    MakeInvoicePage(
+                      paymentSum: paymentSum,
+                    ),
+                  );
                 }
               },
             )
