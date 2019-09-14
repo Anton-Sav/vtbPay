@@ -50,12 +50,21 @@ class _LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Loading'),
-      ),
-      body: Center(
-        child: LinearProgressIndicator(),
-      ),
+      body: Container(
+          decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/loading.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: CircularProgressIndicator(
+            backgroundColor: Color.fromRGBO(255, 71, 58, 50),
+
+          )
+        )
+      )
+
     );
   }
 }
