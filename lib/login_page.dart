@@ -79,7 +79,7 @@ class _LoginFormState extends State<_LoginForm> {
                   fontSize: 12,
                   color: Colors.black,
                 ),
-                labelText: 'Адрес кошелька',
+                hintText: 'Адрес кошелька',
                 border: OutlineInputBorder(),
                 fillColor: Colors.white,
                 filled: true
@@ -102,7 +102,7 @@ class _LoginFormState extends State<_LoginForm> {
             height: 16,
           ),
           SizedBox(
-            height: 56,
+            height: 54,
             width: double.infinity,
             child: RaisedButton(
               color: Color.fromRGBO(255, 71, 58, 50),
