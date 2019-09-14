@@ -6,16 +6,44 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Вход'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: _LoginForm(
-          onSubmit: ({String walletAddress}) {
-            BlocProvider.of<RepositoryBloc>(context)
-                .dispatch(RepositoryEventLogIn(walletAddress: walletAddress));
-          },
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/theme.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(40.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Spacer(
+                flex: 2,
+              ),
+              Text(
+                '¥EEZY\nPAY',
+                style: TextStyle(
+                  fontSize: 50,
+                  height: 1.3,
+                  fontFamily: 'Montserrat',
+                  color: Color.fromRGBO(255, 248, 248, 50),
+                ),
+              ),
+              Spacer(
+                flex: 1,
+              ),
+              _LoginForm(
+                onSubmit: ({String walletAddress}) {
+                  BlocProvider.of<RepositoryBloc>(context).dispatch(
+                      RepositoryEventLogIn(walletAddress: walletAddress));
+                },
+              ),
+              Spacer(
+                flex: 2,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -43,27 +71,48 @@ class _LoginFormState extends State<_LoginForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          TextFormField(
-            decoration: InputDecoration(
-              labelText: 'Адрес кошелька',
-            ),
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Введите адрес';
-              }
-              if (value.length != 10) {
-                return 'Длина адреса должна быть 10 символов';
-              }
-              return null;
-            },
-            onSaved: (value) {
-              walletAddress = value;
-            },
-          ),
-          SizedBox(height: 8),
           Center(
+            child: TextFormField(
+              decoration: InputDecoration(
+                labelStyle: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 12,
+                  color: Colors.black,
+                ),
+                labelText: 'Адрес кошелька',
+                border: OutlineInputBorder(),
+                fillColor: Colors.white,
+                filled: true
+              ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Введите адрес';
+                }
+                if (value.length != 10) {
+                  return 'Длина адреса должна быть 10 символов';
+                }
+                return null;
+              },
+              onSaved: (value) {
+                walletAddress = value;
+              },
+            ),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          SizedBox(
+            height: 46,
+            width: double.infinity,
             child: RaisedButton(
-              child: Text('Войти'),
+              color: Color.fromRGBO(255, 71, 58, 50),
+              child: Text(
+                'Войти',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Montserrat',
+                    fontSize: 12),
+              ),
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
@@ -77,4 +126,3 @@ class _LoginFormState extends State<_LoginForm> {
     );
   }
 }
-
