@@ -102,7 +102,7 @@ class _LoginFormState extends State<_LoginForm> {
             height: 16,
           ),
           SizedBox(
-            height: 46,
+            height: 56,
             width: double.infinity,
             child: RaisedButton(
               color: Color.fromRGBO(255, 71, 58, 50),
