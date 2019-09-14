@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtb_pay_app/login_page.dart';
+import 'package:vtb_pay_app/menu.dart';
 import 'package:vtb_pay_app/repository_bloc.dart';
 
 void main() => runApp(MyApp());
@@ -32,7 +33,7 @@ class _SwitchPage extends StatelessWidget {
             return LoginPage();
           }
           if (state is RepositoryStateLoggedIn) {
-            return _TabsPage();
+            return MenuPage();
           }
           return null;
         }
@@ -55,16 +56,3 @@ class _LoadingPage extends StatelessWidget {
   }
 }
 
-class _TabsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Tabs'),
-      ),
-      body: Center(
-        child: Text('TODO'),
-      ),
-    );
-  }
-}
