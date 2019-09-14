@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtb_pay_app/login_page.dart';
 import 'package:vtb_pay_app/menu.dart';
 import 'package:vtb_pay_app/repository_bloc.dart';
+import 'package:vtb_pay_app/user_bloc.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,7 +34,10 @@ class _SwitchPage extends StatelessWidget {
             return LoginPage();
           }
           if (state is RepositoryStateLoggedIn) {
-            return MenuPage();
+            return BlocProvider<UserBloc>(
+              builder: (context) => UserBloc(state),
+              child: MenuPage(),
+            );
           }
           return null;
         }
