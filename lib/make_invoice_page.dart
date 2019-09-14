@@ -37,6 +37,7 @@ class MakeInvoicePage extends StatelessWidget {
                       QrRenderer(
                         address: BlocProvider.of<UserBloc>(context).walletAddress,
                         amount: state.amount,
+                        invoiceId: state.invoiceId,
                       ),
                       RaisedButton(
                         child: Text('Далее'),

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:bloc/bloc.dart';
+import 'package:uuid/uuid.dart';
 import 'package:vtb_pay_app/network.dart';
 
 @immutable
@@ -31,10 +32,14 @@ class InvoiceStateSendingInvoice extends InvoiceState {
       : super(remaining: remaining);}
 
 class InvoiceStateShowingQr extends InvoiceState {
+  final String invoiceId;
   final int amount;
 
-  InvoiceStateShowingQr({@required int remaining, @required this.amount})
-      : super(remaining: remaining);
+  InvoiceStateShowingQr({
+    @required int remaining,
+    @required this.invoiceId,
+    @required this.amount,
+  }) : super(remaining: remaining);
 }
 
 class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
@@ -53,14 +58,17 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
       yield InvoiceStateSendingInvoice(
         remaining: remaining,
       );
+      final invoiceId = Uuid().v4();
       await makeInvoice(
         recipientWalletId: event.address,
         paymentAmount: event.amount,
         description: 'test invoice',
+        invoiceId: invoiceId,
       );
       yield InvoiceStateShowingQr(
         remaining: remaining,
         amount: event.amount,
+        invoiceId: invoiceId
       );
     }
     if (event is InvoiceEventNext) {
