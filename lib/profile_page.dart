@@ -4,6 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtb_pay_app/design.dart';
 import 'package:vtb_pay_app/repository_bloc.dart';
 import 'package:vtb_pay_app/user_bloc.dart';
+import 'package:vtb_pay_app/utils.dart';
+
+class ProfileTab extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return PopNavigator(
+      child: ProfilePage(),
+    );
+  }
+}
 
 class ProfilePage extends StatelessWidget {
   @override

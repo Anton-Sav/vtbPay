@@ -4,6 +4,15 @@ import 'package:vtb_pay_app/design.dart';
 import 'package:vtb_pay_app/make_invoice_page.dart';
 import 'package:vtb_pay_app/utils.dart';
 
+class InvoiceTab extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return PopNavigator(
+      child: InvoicePage(),
+    );
+  }
+}
+
 class InvoicePage extends StatefulWidget {
   @override
   _InvoicePageState createState() => _InvoicePageState();
