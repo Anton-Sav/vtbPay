@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtb_pay_app/assets.dart';
 import 'package:vtb_pay_app/design.dart';
 import 'package:vtb_pay_app/repository_bloc.dart';
+import 'package:vtb_pay_app/utils.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -15,36 +16,38 @@ class LoginPage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(40.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Spacer(
-                flex: 2,
-              ),
-              Text(
-                '¥EEZY\nPAY',
-                style: TextStyle(
-                  fontSize: 50,
-                  height: 1.3,
-                  fontFamily: fontFamilyMontserrat,
-                  color: Color.fromRGBO(255, 248, 248, 50),
+        child: SmartScroll(
+          child: Padding(
+            padding: const EdgeInsets.all(40.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Spacer(
+                  flex: 2,
                 ),
-              ),
-              Spacer(
-                flex: 1,
-              ),
-              _LoginForm(
-                onSubmit: ({String walletAddress}) {
-                  BlocProvider.of<RepositoryBloc>(context).dispatch(
-                      RepositoryEventLogIn(walletAddress: walletAddress));
-                },
-              ),
-              Spacer(
-                flex: 2,
-              ),
-            ],
+                Text(
+                  '¥EEZY\nPAY',
+                  style: TextStyle(
+                    fontSize: 50,
+                    height: 1.3,
+                    fontFamily: fontFamilyMontserrat,
+                    color: Color.fromRGBO(255, 248, 248, 50),
+                  ),
+                ),
+                Spacer(
+                  flex: 1,
+                ),
+                _LoginForm(
+                  onSubmit: ({String walletAddress}) {
+                    BlocProvider.of<RepositoryBloc>(context).dispatch(
+                        RepositoryEventLogIn(walletAddress: walletAddress));
+                  },
+                ),
+                Spacer(
+                  flex: 2,
+                ),
+              ],
+            ),
           ),
         ),
       ),
