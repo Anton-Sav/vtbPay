@@ -15,7 +15,9 @@ class MakeInvoicePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MakeInvoicePage'),
+          title: Text('MakeInvoicePage'),
+          backgroundColor: Colors.white,
+          toolbarOpacity: 0
       ),
       body: Column(
         children: <Widget>[

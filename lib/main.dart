@@ -53,18 +53,13 @@ class _LoadingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+          decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(ImageAssets.loading),
+            image: AssetImage('assets/loadingWithLogo.jpg'),
             fit: BoxFit.cover,
           ),
         ),
-        child: Center(
-          child: CircularProgressIndicator(
-            backgroundColor: MyColors.red,
-          ),
-        ),
-      ),
+      )
     );
   }
 }

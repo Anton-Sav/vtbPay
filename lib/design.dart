@@ -18,7 +18,6 @@ class MyAppBar extends AppBar {
       title,
       style: TextStyle(
         fontSize: 20,
-        height: 1.5,
         fontFamily: fontFamilyMontserrat,
         color: MyColors.red,
       ),
