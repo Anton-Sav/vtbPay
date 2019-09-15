@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtb_pay_app/invoice_bloc.dart';
+import 'package:vtb_pay_app/local_storage.dart';
 import 'package:vtb_pay_app/qr_renderer.dart';
 import 'package:vtb_pay_app/user_bloc.dart';
 import 'package:vtb_pay_app/utils.dart';
 import 'package:vtb_pay_app/design.dart';
 
 class MakeInvoicePage extends StatelessWidget {
+  final String description;
   final int paymentSum;
 
-  const MakeInvoicePage({@required this.paymentSum});
+  const MakeInvoicePage({@required this.description, @required this.paymentSum});
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,7 @@ class MakeInvoicePage extends StatelessWidget {
                   return LinearProgressIndicator();
                 }
                 if (state is InvoiceStateShowingQr) {
+                  MyInvoices.addId(name: description, id: state.invoiceId);
                   return Column(
                     children: <Widget>[
                       Text('Платёж на ${state.amount} руб'),

@@ -29,15 +29,22 @@ class MyInvoices {
   static const _keyNames = 'my_invoices';
   static const _keyIds = 'my_invoices_';
 
-  static Future<void> add({
-    @required String name,
-    @required List<String> ids,
-  }) async {
+  static Future<void> addName({@required String name}) async {
     final prefs = await SharedPreferences.getInstance();
     final names = prefs.getStringList(_keyNames) ?? [];
-    names.add(name);
-    await prefs.setStringList(_keyNames, names);
-    await prefs.setStringList(_keyIds + name, ids);
+    if (!names.contains(name)) {
+      names.add(name);
+      await prefs.setStringList(_keyNames, names);
+    }
+  }
+
+  static Future<void> addId({@required String name, @required String id}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final ids = prefs.getStringList(_keyIds) ?? [];
+    if (!ids.contains(id)) {
+      ids.add(id);
+      await prefs.setStringList(_keyIds + name, ids);
+    }
   }
 
   static Future<Map<String, List<String>>> getAll() async {
@@ -47,8 +54,8 @@ class MyInvoices {
     for (final name in names) {
       map[name] = prefs.getStringList(_keyIds + name);
     }
-    map['test1'] = ['3'];
-    map['test2'] = ['3', '3'];
+    // map['test1'] = ['3'];
+    // map['test2'] = ['3', '3'];
     return map;
   }
 }

@@ -4,6 +4,8 @@ import 'package:vtb_pay_app/design.dart';
 import 'package:vtb_pay_app/make_invoice_page.dart';
 import 'package:vtb_pay_app/utils.dart';
 
+import 'local_storage.dart';
+
 class InvoiceTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class InvoicePage extends StatefulWidget {
 class _InvoicePageState extends State<InvoicePage> {
   final _formKey = GlobalKey<FormState>();
 
+  String description;
   int paymentSum;
 
   @override
@@ -82,6 +85,23 @@ class _InvoicePageState extends State<InvoicePage> {
                           vertical: 4.0, horizontal: 16.0),
                       child: TextFormField(
                         decoration: InputDecoration(
+                          hintText: 'Описание',
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Введите описание';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) {
+                          description = value;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+                      child: TextFormField(
+                        decoration: InputDecoration(
                           hintText: 'RUB',
                         ),
                         inputFormatters: [
@@ -130,8 +150,10 @@ class _InvoicePageState extends State<InvoicePage> {
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
                                 _formKey.currentState.save();
+                                MyInvoices.addName(name: description);
                                 Nav(context).push(
                                   MakeInvoicePage(
+                                    description: description,
                                     paymentSum: paymentSum,
                                   ),
                                 );
