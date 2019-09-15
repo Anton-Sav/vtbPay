@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:bloc/bloc.dart';
+import 'package:vtb_pay_app/local_storage.dart';
 
 @immutable
 abstract class RepositoryEvent {}
@@ -39,17 +40,21 @@ class RepositoryBloc extends Bloc<RepositoryEvent, RepositoryState> {
   Stream<RepositoryState> mapEventToState(RepositoryEvent event) async* {
     if (event is _RepositoryEventInit) {
       yield RepositoryStateLoading();
-      await Future.delayed(Duration(seconds: 1));
-      yield RepositoryStateUnauthorised(); // TODO fetch wallet_address from local storage
+      if (await WalletAddress.exists()) {
+        final walletAddress = await WalletAddress.load();
+        yield RepositoryStateLoggedIn(walletAddress: walletAddress);
+      } else {
+        yield RepositoryStateUnauthorised();
+      }
     }
     if (event is RepositoryEventLogIn) {
       yield RepositoryStateLoading();
-      await Future.delayed(Duration(seconds: 1));
+      await WalletAddress.save(event.walletAddress);
       yield RepositoryStateLoggedIn(walletAddress: event.walletAddress);
     }
     if (event is RepositoryEventLogOut) {
       yield RepositoryStateLoading();
-      await Future.delayed(Duration(seconds: 1));
+      await WalletAddress.delete();
       yield RepositoryStateUnauthorised();
     }
   }
