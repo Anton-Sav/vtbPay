@@ -40,10 +40,11 @@ class MyInvoices {
 
   static Future<void> addId({@required String name, @required String id}) async {
     final prefs = await SharedPreferences.getInstance();
-    final ids = prefs.getStringList(_keyIds) ?? [];
+    final key = _keyIds + name;
+    final ids = prefs.getStringList(key) ?? [];
     if (!ids.contains(id)) {
       ids.add(id);
-      await prefs.setStringList(_keyIds + name, ids);
+      await prefs.setStringList(key, ids);
     }
   }
 
