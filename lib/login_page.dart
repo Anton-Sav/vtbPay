@@ -93,7 +93,7 @@ class _LoginFormState extends State<_LoginForm> {
                 if (value.isEmpty) {
                   return 'Введите адрес';
                 }
-                if (value.length != 10) {
+                if (value.length != 10 && value.length != 40) {
                   return 'Длина адреса должна быть 10 символов';
                 }
                 return null;
