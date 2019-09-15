@@ -20,7 +20,7 @@ class HistoryPage extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          'И С Т О Р И Я',
+          'История',
           style: TextStyle(
             fontSize: 20,
             fontFamily: 'Montserrat',

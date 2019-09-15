@@ -31,7 +31,9 @@ class HistoryItem extends StatelessWidget {
           );
         }
         if (!snapshot.hasData) {
-          return LinearProgressIndicator();
+          return LinearProgressIndicator(
+              backgroundColor: Colors.red,
+          );
         }
         return _Item(snapshot.data);
       },

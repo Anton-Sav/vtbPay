@@ -28,7 +28,7 @@ class QrRenderer extends StatelessWidget {
           'amount': amount,
           'currencyCode': currencyCode
         }),
-        size: 0.5 * bodyHeight,
+        size: 0.40 * bodyHeight,
       ),
     );
   }
