@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-
 class QrRenderer extends StatefulWidget {
   final String invoiceId;
   final String address;
@@ -18,13 +17,13 @@ class QrRenderer extends StatefulWidget {
 }
 
 class GenerateQrCode extends State<QrRenderer> {
-
   GlobalKey globalKey = new GlobalKey();
   String _data = "Hello NetworkOnMainThreadException";
 
   @override
   Widget build(BuildContext context) {
-    final bodyHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).viewInsets.bottom;
+    final bodyHeight = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).viewInsets.bottom;
     return RepaintBoundary(
       key: globalKey,
       child: QrImage(
@@ -33,5 +32,4 @@ class GenerateQrCode extends State<QrRenderer> {
       ),
     );
   }
-
 }

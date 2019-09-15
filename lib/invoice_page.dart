@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vtb_pay_app/design.dart';
 import 'package:vtb_pay_app/make_invoice_page.dart';
 import 'package:vtb_pay_app/utils.dart';
+
+import 'assets.dart';
 
 class InvoicePage extends StatefulWidget {
   @override
@@ -11,7 +14,7 @@ class InvoicePage extends StatefulWidget {
 class _InvoicePageState extends State<InvoicePage> {
   final _formKey = GlobalKey<FormState>();
 
-  String aaa;
+  int paymentSum;
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +26,12 @@ class _InvoicePageState extends State<InvoicePage> {
           style: TextStyle(
             fontSize: 20,
             height: 1.5,
-            fontFamily: 'Montserrat',
-            color: Color.fromRGBO(255, 71, 58, 50),
+            fontFamily: fontFamilyMontserrat,
+            color: MyColors.red,
           ),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
-
       ),
       body: SizedBox(
         child: Form(
@@ -49,7 +51,7 @@ class _InvoicePageState extends State<InvoicePage> {
                   return null;
                 },
                 onSaved: (value) {
-                  aaa = value;
+                  paymentSum = int.parse(value);
                 },
               ),
               RaisedButton(
@@ -57,7 +59,6 @@ class _InvoicePageState extends State<InvoicePage> {
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    int paymentSum = int.parse(aaa);
                     Nav(context).push(
                       MakeInvoicePage(
                         paymentSum: paymentSum,

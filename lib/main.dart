@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vtb_pay_app/assets.dart';
+import 'package:vtb_pay_app/design.dart';
 import 'package:vtb_pay_app/login_page.dart';
 import 'package:vtb_pay_app/menu.dart';
 import 'package:vtb_pay_app/repository_bloc.dart';
@@ -51,20 +53,18 @@ class _LoadingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          decoration: BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/loading.jpg'),
+            image: AssetImage(ImageAssets.loading),
             fit: BoxFit.cover,
           ),
         ),
         child: Center(
           child: CircularProgressIndicator(
-            backgroundColor: Color.fromRGBO(255, 71, 58, 50),
-
-          )
-        )
-      )
-
+            backgroundColor: MyColors.red,
+          ),
+        ),
+      ),
     );
   }
 }

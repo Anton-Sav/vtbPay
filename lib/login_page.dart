@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vtb_pay_app/assets.dart';
+import 'package:vtb_pay_app/design.dart';
 import 'package:vtb_pay_app/repository_bloc.dart';
 
 class LoginPage extends StatelessWidget {
@@ -9,7 +11,7 @@ class LoginPage extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/theme.jpg'),
+            image: AssetImage(ImageAssets.theme),
             fit: BoxFit.cover,
           ),
         ),
@@ -26,7 +28,7 @@ class LoginPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 50,
                   height: 1.3,
-                  fontFamily: 'Montserrat',
+                  fontFamily: fontFamilyMontserrat,
                   color: Color.fromRGBO(255, 248, 248, 50),
                 ),
               ),
@@ -75,14 +77,14 @@ class _LoginFormState extends State<_LoginForm> {
             child: TextFormField(
               decoration: InputDecoration(
                 labelStyle: TextStyle(
-                  fontFamily: 'Montserrat',
+                  fontFamily: fontFamilyMontserrat,
                   fontSize: 12,
                   color: Colors.black,
                 ),
                 hintText: 'Адрес кошелька',
                 border: OutlineInputBorder(),
                 fillColor: Colors.white,
-                filled: true
+                filled: true,
               ),
               validator: (value) {
                 if (value.isEmpty) {
@@ -105,13 +107,14 @@ class _LoginFormState extends State<_LoginForm> {
             height: 54,
             width: double.infinity,
             child: RaisedButton(
-              color: Color.fromRGBO(255, 71, 58, 50),
+              color: MyColors.red,
               child: Text(
                 'Войти',
                 style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Montserrat',
-                    fontSize: 12),
+                  color: Colors.white,
+                  fontFamily: fontFamilyMontserrat,
+                  fontSize: 12,
+                ),
               ),
               onPressed: () {
                 if (_formKey.currentState.validate()) {

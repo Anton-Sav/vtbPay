@@ -1,28 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:vtb_pay_app/design.dart';
 import 'package:vtb_pay_app/history_page.dart';
 import 'package:vtb_pay_app/invoice_page.dart';
 import 'package:vtb_pay_app/profile_page.dart';
 
-class MenuPage extends StatelessWidget {
-  static const String _title = 'Flutter Code Sample';
-
+class MenuPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: MyStatefulWidget(),
-    );
-  }
+  _MenuPageState createState() => _MenuPageState();
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
-
-  @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _MenuPageState extends State<MenuPage> {
   int _selectedIndex = 0;
 
   static List<Widget> _widgetOptions = <Widget>[
@@ -40,9 +27,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -59,7 +44,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Color.fromRGBO(255, 71, 58, 50),
+        selectedItemColor: MyColors.red,
         onTap: _onItemTapped,
       ),
     );
