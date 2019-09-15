@@ -16,7 +16,17 @@ class HistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HistoryPage'),
+        elevation: 0,
+        title: Text(
+          'И С Т О Р И Я',
+          style: TextStyle(
+            fontSize: 20,
+            fontFamily: 'Montserrat',
+            color: Color.fromRGBO(255, 71, 58, 50),
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
       ),
       body: Text(
         'Смотрим историю',
