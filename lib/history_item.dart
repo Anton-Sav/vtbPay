@@ -32,7 +32,7 @@ class HistoryItem extends StatelessWidget {
         }
         if (!snapshot.hasData) {
           return LinearProgressIndicator(
-              backgroundColor: Colors.red,
+            backgroundColor: Colors.red,
           );
         }
         return _Item(snapshot.data);
@@ -50,7 +50,32 @@ class _Item extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(data.description),
-      subtitle: Text('State: ${data.state}'),
+      subtitle: Text('Статус: ${state(data.state)}'),
     );
+  }
+
+  String state(int state) {
+    switch (state) {
+      case 0:
+        return "Не определен";
+
+      case 1:
+        return "Создан";
+
+      case 2:
+        return "Выставлен";
+
+      case 3:
+        return "Ошибочный счет";
+
+      case 4:
+        return "Истекло время действия счета";
+
+      case 5:
+        return "Оплачен";
+
+      default:
+        return "";
+    }
   }
 }
