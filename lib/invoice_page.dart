@@ -4,8 +4,6 @@ import 'package:vtb_pay_app/design.dart';
 import 'package:vtb_pay_app/make_invoice_page.dart';
 import 'package:vtb_pay_app/utils.dart';
 
-import 'assets.dart';
-
 class InvoicePage extends StatefulWidget {
   @override
   _InvoicePageState createState() => _InvoicePageState();
@@ -20,19 +18,7 @@ class _InvoicePageState extends State<InvoicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          '¥EEZY PAY',
-          style: TextStyle(
-            fontSize: 20,
-            height: 1.5,
-            fontFamily: fontFamilyMontserrat,
-            color: MyColors.red,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-      ),
+      appBar: MyAppBar('¥EEZY PAY'),
       body: SizedBox(
         child: Form(
           key: _formKey,
