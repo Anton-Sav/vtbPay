@@ -5,6 +5,7 @@ import 'package:vtb_pay_app/invoice_bloc.dart';
 import 'package:vtb_pay_app/qr_renderer.dart';
 import 'package:vtb_pay_app/user_bloc.dart';
 import 'package:vtb_pay_app/utils.dart';
+import 'package:vtb_pay_app/design.dart';
 
 class MakeInvoicePage extends StatelessWidget {
   final int paymentSum;
@@ -15,13 +16,30 @@ class MakeInvoicePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('MakeInvoicePage'),
-          backgroundColor: Colors.white,
-          toolbarOpacity: 0
+        elevation: 0,
+        title: Text(
+          '¥EEZY PAY',
+          style: TextStyle(
+            fontSize: 20,
+            fontFamily: 'Montserrat',
+            color: Color.fromRGBO(255, 71, 58, 50),
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
       ),
       body: Column(
         children: <Widget>[
-          Text('Общая сумма: $paymentSum руб'),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Text('Общая сумма: $paymentSum руб',
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'Montserrat',
+                fontSize: 20,
+              ),
+            ),
+          ),
           BlocProvider<InvoiceBloc>(
             builder: (context) => InvoiceBloc(totalAmount: paymentSum),
             child: BlocBuilder<InvoiceBloc, InvoiceState>(
@@ -37,16 +55,34 @@ class MakeInvoicePage extends StatelessWidget {
                     children: <Widget>[
                       Text('Платёж на ${state.amount} руб'),
                       QrRenderer(
-                        address: BlocProvider.of<UserBloc>(context).walletAddress,
+                        address:
+                            BlocProvider.of<UserBloc>(context).walletAddress,
                         amount: state.amount,
                         invoiceId: state.invoiceId,
                       ),
-                      RaisedButton(
-                        child: Text('Далее'),
-                        onPressed: () {
-                          BlocProvider.of<InvoiceBloc>(context)
-                              .dispatch(InvoiceEventNext());
-                        },
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Center(
+                          child: SizedBox(
+                            width: 260,
+                            height: 42,
+                            child: RaisedButton(
+                              color: MyColors.red,
+                              child: Text(
+                                'Далее',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 12,
+                                ),
+                              ),
+                              onPressed: () {
+                                BlocProvider.of<InvoiceBloc>(context)
+                                    .dispatch(InvoiceEventNext());
+                              },
+                            ),
+                          ),
+                        ),
                       ),
                       RaisedButton(
                         child: Text('Завершить'),
@@ -76,7 +112,14 @@ class _EnterAmount extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text('Осталось: $remaining руб'),
+
+        Text('Осталось: $remaining руб',
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: 'Montserrat',
+            fontSize: 20,
+          ),
+        ),
         _EnterAmountForm(
           maxAmount: remaining,
           onSubmit: ({amount}) {
@@ -92,7 +135,6 @@ class _EnterAmount extends StatelessWidget {
     );
   }
 }
-
 
 class _EnterAmountForm extends StatefulWidget {
   final int maxAmount;
@@ -116,36 +158,56 @@ class _EnterAmountFormState extends State<_EnterAmountForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Center(
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Сумма платежа',
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Center(
+              child: TextFormField(
+                decoration: InputDecoration(
+                  hintText: 'Сумма платежа',
+                ),
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Введите cумму';
+                  }
+                  final amount = int.parse(value);
+                  if (amount > widget.maxAmount) {
+                    return 'Сумма должна быть меньше остатка';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  amount = int.parse(value);
+                },
               ),
-              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-              keyboardType: TextInputType.number,
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Введите cумму';
-                }
-                final amount = int.parse(value);
-                if (amount > widget.maxAmount) {
-                  return 'Сумма должна быть меньше остатка';
-                }
-                return null;
-              },
-              onSaved: (value) {
-                amount = int.parse(value);
-              },
             ),
           ),
-          RaisedButton(
-            child: Text('Сгенерировать QR-код'),
-            onPressed: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
-                widget.onSubmit(amount: amount);
-              }
-            },
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Center(
+              child: SizedBox(
+                width: 260,
+                height: 42,
+                child: RaisedButton(
+                  color: MyColors.red,
+                  child: Text(
+                    'Собрать деньги',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Montserrat',
+                      fontSize: 12,
+                    ),
+                  ),
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      _formKey.currentState.save();
+                      widget.onSubmit(amount: amount);
+                    }
+                  },
+                ),
+              ),
+            ),
           ),
         ],
       ),
