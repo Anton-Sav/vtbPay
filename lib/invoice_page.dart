@@ -54,7 +54,7 @@ class _InvoicePageState extends State<InvoicePage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical:6.0, horizontal: 16.0),
+                      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 24.0, bottom: 0.0),
                       child: Text(
                         'Поделить\nсчет',
                         style: TextStyle(
