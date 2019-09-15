@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:bloc/bloc.dart';
 import 'package:uuid/uuid.dart';
@@ -44,7 +46,8 @@ class InvoiceStateShowingQr extends InvoiceState {
 
 class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
   final int totalAmount;
-
+  String session = "";
+  
   InvoiceBloc({@required this.totalAmount});
 
   @override
@@ -59,7 +62,12 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
         remaining: remaining,
       );
       final invoiceId = Uuid().v4();
+      await makeSession(address: event.address).then((result) {
+        var response = json.decode(result);
+        session = response["data"];
+      });
       await makeInvoice(
+        FPSID: session,
         recipientWalletId: event.address,
         paymentAmount: event.amount,
         description: 'test invoice',
