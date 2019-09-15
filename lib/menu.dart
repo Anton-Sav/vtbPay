@@ -3,6 +3,7 @@ import 'package:vtb_pay_app/design.dart';
 import 'package:vtb_pay_app/history_page.dart';
 import 'package:vtb_pay_app/invoice_page.dart';
 import 'package:vtb_pay_app/profile_page.dart';
+import 'package:vtb_pay_app/utils.dart';
 
 class MenuPage extends StatefulWidget {
   @override
@@ -27,7 +28,9 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _widgetOptions.elementAt(_selectedIndex),
+      body: PopNavigator(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

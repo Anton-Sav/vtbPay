@@ -61,3 +61,35 @@ class SmartScroll extends StatelessWidget {
   }
 }
 
+
+class PopNavigator extends StatefulWidget {
+  final Widget child;
+
+  const PopNavigator({@required this.child});
+
+  @override
+  _PopNavigatorState createState() => _PopNavigatorState();
+}
+
+class _PopNavigatorState extends State<PopNavigator> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      child: Navigator(
+        key: _navigatorKey,
+        onGenerateRoute: (RouteSettings settings) {
+          return PageRouteBuilder(
+            pageBuilder: (_, __, ___) {
+              return widget.child;
+            },
+          );
+        },
+      ),
+      onWillPop: () async {
+        return !await _navigatorKey.currentState.maybePop();
+      },
+    );
+  }
+}
