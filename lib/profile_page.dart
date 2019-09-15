@@ -19,7 +19,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar('Мой профиль'),
+      appBar: MyAppBar('П Р О Ф И Л Ь'),
       body: ListView(
         children: <Widget>[
           _WalletAddress(),
