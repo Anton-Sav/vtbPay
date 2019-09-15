@@ -41,7 +41,7 @@ class _InvoicePageState extends State<InvoicePage> {
           backgroundColor: Colors.white,
         ),
         body: SingleChildScrollView(
-          child:  Container(
+          child: Container(
             child: SizedBox(
               child: Form(
                 key: _formKey,
@@ -54,7 +54,8 @@ class _InvoicePageState extends State<InvoicePage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 24.0, bottom: 0.0),
+                      padding: const EdgeInsets.only(
+                          left: 16.0, right: 16.0, top: 24.0, bottom: 0.0),
                       child: Text(
                         'Поделить\nсчет',
                         style: TextStyle(
@@ -65,23 +66,27 @@ class _InvoicePageState extends State<InvoicePage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 0.0, horizontal: 16.0),
                       child: Text(
                         'Invoice',
                         style: TextStyle(
                           fontSize: 18,
                           fontFamily: 'Montserrat',
-                          color: Color.fromRGBO(	212, 212, 212, 50),
+                          color: Color.fromRGBO(212, 212, 212, 50),
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4.0, horizontal: 16.0),
                       child: TextFormField(
                         decoration: InputDecoration(
                           hintText: 'RUB',
                         ),
-                        inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+                        inputFormatters: [
+                          WhitelistingTextInputFormatter.digitsOnly
+                        ],
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value.isEmpty) {
@@ -95,13 +100,14 @@ class _InvoicePageState extends State<InvoicePage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 0.0, horizontal: 16.0),
                       child: Text(
                         'Введите общую сумму\n счета',
                         style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'Montserrat',
-                          color: Color.fromRGBO(	212, 212, 212, 50),
+                          color: Color.fromRGBO(212, 212, 212, 50),
                         ),
                       ),
                     ),
@@ -111,7 +117,7 @@ class _InvoicePageState extends State<InvoicePage> {
                         child: SizedBox(
                           width: 260,
                           height: 42,
-                          child:RaisedButton(
+                          child: RaisedButton(
                             color: MyColors.red,
                             child: Text(
                               'Собрать деньги',
@@ -131,7 +137,7 @@ class _InvoicePageState extends State<InvoicePage> {
                                 );
                               }
                             },
-                          ) ,
+                          ),
                         ),
                       ),
                     ),
@@ -140,7 +146,6 @@ class _InvoicePageState extends State<InvoicePage> {
               ),
             ),
           ),
-        )
-    );
+        ));
   }
 }

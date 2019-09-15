@@ -14,6 +14,7 @@ class MyColors {
 
 class MyAppBar extends AppBar {
   MyAppBar(String title) : super(
+    elevation: 0,
     title: Text(
       title,
       style: TextStyle(

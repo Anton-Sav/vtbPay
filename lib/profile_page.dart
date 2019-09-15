@@ -19,7 +19,9 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar('П Р О Ф И Л Ь'),
+      appBar: MyAppBar(
+        'Профиль',
+      ),
       body: ListView(
         children: <Widget>[
           _WalletAddress(),
@@ -37,7 +39,14 @@ class _WalletAddress extends StatelessWidget {
   Widget build(BuildContext context) {
     final walletAddress = BlocProvider.of<UserBloc>(context).walletAddress;
     return ListTile(
-      title: Text('Адрес кошелька'),
+      title: Text(
+        'Адрес\nкошелька',
+        style: TextStyle(
+          fontSize: 18,
+          fontFamily: 'Montserrat',
+          color: Colors.black,
+        ),
+      ),
       subtitle: Text(walletAddress),
       trailing: Icon(Icons.content_copy),
       onTap: () {
@@ -60,14 +69,30 @@ class _Logout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text('Выйти'),
+      title: Text('Выйти',
+        style: TextStyle(
+          fontSize: 18,
+          fontFamily: 'Montserrat',
+        ),),
       onTap: () async {
         final result = await showDialog<bool>(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Выйти из аккаунта?'),
-              content: Text('Данные вашего кошелька будут удалены с устройства'),
+              title:  Text(
+                'Выйти из аккаунта?',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'Montserrat',
+                ),
+              ),
+              content:
+                  Text('Данные вашего кошелька будут удалены с устройства',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Montserrat',
+                    ),
+                  ),
               actions: <Widget>[
                 FlatButton(
                   textColor: Colors.blue,
@@ -78,7 +103,12 @@ class _Logout extends StatelessWidget {
                 ),
                 FlatButton(
                   textColor: Colors.red,
-                  child: Text('ВЫЙТИ'),
+                  child: Text(
+                    'ВЫЙТИ',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                    ),
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop(true);
                   },
