@@ -9,10 +9,9 @@ abstract class UserEvent {}
 class UserState {}
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  final String walletAddress;
+  final RepositoryStateLoggedIn data;
 
-  UserBloc(RepositoryStateLoggedIn loggedInData)
-      : walletAddress = loggedInData.walletAddress;
+  UserBloc(this.data);
 
   @override
   UserState get initialState => UserState();

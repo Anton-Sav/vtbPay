@@ -41,7 +41,10 @@ class MakeInvoicePage extends StatelessWidget {
             ),
           ),
           BlocProvider<InvoiceBloc>(
-            builder: (context) => InvoiceBloc(totalAmount: paymentSum),
+            builder: (context) => InvoiceBloc(
+              session: BlocProvider.of<UserBloc>(context).data.session,
+              totalAmount: paymentSum,
+            ),
             child: BlocBuilder<InvoiceBloc, InvoiceState>(
               builder: (context, state) {
                 if (state is InvoiceStateEnteringAmount) {
@@ -55,8 +58,7 @@ class MakeInvoicePage extends StatelessWidget {
                     children: <Widget>[
                       Text('Платёж на ${state.amount} руб'),
                       QrRenderer(
-                        address:
-                            BlocProvider.of<UserBloc>(context).walletAddress,
+                        address: BlocProvider.of<UserBloc>(context).data.walletAddress,
                         amount: state.amount,
                         invoiceId: state.invoiceId,
                       ),
@@ -125,7 +127,7 @@ class _EnterAmount extends StatelessWidget {
           onSubmit: ({amount}) {
             BlocProvider.of<InvoiceBloc>(context).dispatch(
               InvoiceEventPay(
-                address: BlocProvider.of<UserBloc>(context).walletAddress,
+                address: BlocProvider.of<UserBloc>(context).data.walletAddress,
                 amount: amount,
               ),
             );

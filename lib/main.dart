@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vtb_pay_app/assets.dart';
-import 'package:vtb_pay_app/design.dart';
 import 'package:vtb_pay_app/login_page.dart';
 import 'package:vtb_pay_app/menu.dart';
 import 'package:vtb_pay_app/repository_bloc.dart';

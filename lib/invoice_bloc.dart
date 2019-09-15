@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:bloc/bloc.dart';
 import 'package:uuid/uuid.dart';
@@ -31,7 +29,8 @@ class InvoiceStateEnteringAmount extends InvoiceState {
 
 class InvoiceStateSendingInvoice extends InvoiceState {
   InvoiceStateSendingInvoice({@required int remaining})
-      : super(remaining: remaining);}
+      : super(remaining: remaining);
+}
 
 class InvoiceStateShowingQr extends InvoiceState {
   final String invoiceId;
@@ -45,10 +44,10 @@ class InvoiceStateShowingQr extends InvoiceState {
 }
 
 class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
+  final String session;
   final int totalAmount;
-  String session = "";
-  
-  InvoiceBloc({@required this.totalAmount});
+
+  InvoiceBloc({@required this.session, @required this.totalAmount});
 
   @override
   InvoiceState get initialState =>
@@ -62,10 +61,6 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
         remaining: remaining,
       );
       final invoiceId = Uuid().v4();
-      await makeSession(address: event.address).then((result) {
-        var response = json.decode(result);
-        session = response["data"];
-      });
       await makeInvoice(
         FPSID: session,
         recipientWalletId: event.address,
@@ -74,10 +69,7 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
         invoiceId: invoiceId,
       );
       yield InvoiceStateShowingQr(
-        remaining: remaining,
-        amount: event.amount,
-        invoiceId: invoiceId
-      );
+          remaining: remaining, amount: event.amount, invoiceId: invoiceId);
     }
     if (event is InvoiceEventNext) {
       yield InvoiceStateEnteringAmount(

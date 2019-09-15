@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:vtb_pay_app/design.dart';
+import 'package:vtb_pay_app/history_list.dart';
+import 'package:vtb_pay_app/local_storage.dart';
 import 'package:vtb_pay_app/utils.dart';
 
 class HistoryTab extends StatelessWidget {
@@ -28,9 +30,23 @@ class HistoryPage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
-      body: Text(
-        'Смотрим историю',
-        style: optionStyle,
+      body: FutureBuilder<Map<String, List<String>>>(
+        future: MyInvoices.getAll(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            if (kDebugMode) {
+              throw snapshot.error;
+            }
+            return Text(
+              snapshot.error.toString(),
+              style: TextStyle(color: Colors.red),
+            );
+          }
+          if (!snapshot.hasData) {
+            return LinearProgressIndicator();
+          }
+          return HistoryList(snapshot.data);
+        },
       ),
     );
   }

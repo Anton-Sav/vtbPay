@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:bloc/bloc.dart';
 import 'package:vtb_pay_app/local_storage.dart';
+import 'package:vtb_pay_app/network.dart';
 
 @immutable
 abstract class RepositoryEvent {}
@@ -24,8 +25,12 @@ class RepositoryStateUnauthorised extends RepositoryState {}
 
 class RepositoryStateLoggedIn extends RepositoryState {
   final String walletAddress;
+  final String session;
 
-  RepositoryStateLoggedIn({@required this.walletAddress});
+  RepositoryStateLoggedIn({
+    @required this.walletAddress,
+    @required this.session,
+  });
 }
 
 class RepositoryBloc extends Bloc<RepositoryEvent, RepositoryState> {
@@ -42,7 +47,11 @@ class RepositoryBloc extends Bloc<RepositoryEvent, RepositoryState> {
       yield RepositoryStateLoading();
       if (await WalletAddress.exists()) {
         final walletAddress = await WalletAddress.load();
-        yield RepositoryStateLoggedIn(walletAddress: walletAddress);
+        final session = await makeSession(address: walletAddress);
+        yield RepositoryStateLoggedIn(
+          walletAddress: walletAddress,
+          session: session,
+        );
       } else {
         yield RepositoryStateUnauthorised();
       }
@@ -50,7 +59,11 @@ class RepositoryBloc extends Bloc<RepositoryEvent, RepositoryState> {
     if (event is RepositoryEventLogIn) {
       yield RepositoryStateLoading();
       await WalletAddress.save(event.walletAddress);
-      yield RepositoryStateLoggedIn(walletAddress: event.walletAddress);
+      final session = await makeSession(address: event.walletAddress);
+      yield RepositoryStateLoggedIn(
+        walletAddress: event.walletAddress,
+        session: session,
+      );
     }
     if (event is RepositoryEventLogOut) {
       yield RepositoryStateLoading();

@@ -37,7 +37,7 @@ class ProfilePage extends StatelessWidget {
 class _WalletAddress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final walletAddress = BlocProvider.of<UserBloc>(context).walletAddress;
+    final walletAddress = BlocProvider.of<UserBloc>(context).data.walletAddress;
     return ListTile(
       title: Text(
         'Адрес\nкошелька',
