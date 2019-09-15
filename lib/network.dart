@@ -1,19 +1,31 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:vtb_pay_app/model/InvoiceRequest.dart';
 import 'package:vtb_pay_app/model/session.dart';
 
+final _baseUrl = 'http://89.208.84.235:31080';
+final _apiUrl = '$_baseUrl/api/v1';
+
 Future<String> makeSession({@required String address}) async {
-  var response = await http.post('http://89.208.84.235:31080/api/v1/session',
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(SessionRequest(address: address, deviceId: '1', deviceType: 1)));
+  final response = await http.post(
+    '$_apiUrl/session',
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode(
+      SessionRequest(
+        address: address,
+        deviceId: '1',
+        deviceType: 1,
+      ),
+    ),
+  );
 
   print("Getting session request: ${response.statusCode}");
   print("Session response: ${response.body}");
 
-  return response.body;
+  final data = json.decode(response.body);
+  return data['data'];
 }
 
 Future<void> makeInvoice({

@@ -46,8 +46,7 @@ class InvoiceStateShowingQr extends InvoiceState {
 
 class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
   final int totalAmount;
-  String session = "";
-  
+
   InvoiceBloc({@required this.totalAmount});
 
   @override
@@ -62,10 +61,7 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
         remaining: remaining,
       );
       final invoiceId = Uuid().v4();
-      await makeSession(address: event.address).then((result) {
-        var response = json.decode(result);
-        session = response["data"];
-      });
+      final session = await makeSession(address: event.address);
       await makeInvoice(
         FPSID: session,
         recipientWalletId: event.address,
